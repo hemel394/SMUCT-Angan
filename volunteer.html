@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer | SMUCT Angan</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/volunteer.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="images/smuct-logo.png" alt="SMUCT Angan" class="navbar-logo-img">
+                <span class="navbar-logo-text">আঙিনা</span>
+            </a>
+            <nav class="navbar-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <a href="login.html" class="navbar-btn">Admin Login</a>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-orb page-header-orb-1"></div>
+        <div class="page-header-orb page-header-orb-2"></div>
+        <div class="section-container">
+            <nav class="breadcrumb">
+                <a href="index.html" class="breadcrumb-link">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 12L12 3l9 9M5 10v10h5v-6h4v6h5V10" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Home
+                </a>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current">Volunteer</span>
+            </nav>
+            <h1 class="page-title">Volunteer <em>With Us</em></h1>
+            <p class="page-subtitle">Be part of something bigger — help make SMUCT events unforgettable</p>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section class="volunteer-page">
+        <div class="section-container">
+            <div class="volunteer-grid">
+
+                <!-- Info Side -->
+                <div class="volunteer-info">
+                    <div class="info-header">
+                        <p class="section-eyebrow">Get Involved</p>
+                        <h2 class="info-title">Why Volunteer?</h2>
+                        <p class="info-subtitle">Volunteering at SMUCT events is more than just helping out — it's a chance to grow, connect, and leave your mark on campus life.</p>
+                    </div>
+
+                    <div class="reasons-list">
+                        <div class="reason-item">
+                            <div class="reason-icon">🎯</div>
+                            <div class="reason-body">
+                                <h4>Real Experience</h4>
+                                <p>Gain hands-on event management experience that looks great on your CV.</p>
+                            </div>
+                        </div>
+                        <div class="reason-item">
+                            <div class="reason-icon">🤝</div>
+                            <div class="reason-body">
+                                <h4>Build Your Network</h4>
+                                <p>Connect with students and faculty from across all departments.</p>
+                            </div>
+                        </div>
+                        <div class="reason-item">
+                            <div class="reason-icon">📜</div>
+                            <div class="reason-body">
+                                <h4>Official Certificate</h4>
+                                <p>Receive a certificate of participation signed by the university.</p>
+                            </div>
+                        </div>
+                        <div class="reason-item">
+                            <div class="reason-icon">🌟</div>
+                            <div class="reason-body">
+                                <h4>Stand Out</h4>
+                                <p>Strengthen your academic and professional portfolio.</p>
+                            </div>
+                        </div>
+                        <div class="reason-item">
+                            <div class="reason-icon">🎉</div>
+                            <div class="reason-body">
+                                <h4>Community Spirit</h4>
+                                <p>Be at the heart of the SMUCT campus community.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="volunteer-form-card" id="volunteer-form-card">
+                    <div class="form-header">
+                        <p class="section-eyebrow">Apply Now</p>
+                        <h2 class="form-title">Sign Up to Volunteer</h2>
+                        <p class="form-subtitle">Fill in your details and we'll be in touch shortly.</p>
+                    </div>
+
+                    <div class="volunteer-form" id="volunteer-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vol-name">Full Name</label>
+                                <input type="text" id="vol-name" placeholder="e.g. Ahmmed Jobayer">
+                            </div>
+                            <div class="form-group">
+                                <label for="vol-id">Student ID</label>
+                                <input type="text" id="vol-id" placeholder="e.g. 241071002">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vol-dept">Department</label>
+                                <input type="text" id="vol-dept" placeholder="e.g. CSE, BBA, FPA">
+                            </div>
+                            <div class="form-group">
+                                <label for="vol-phone">Phone</label>
+                                <input type="text" id="vol-phone" placeholder="01XXXXXXXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vol-email">Email Address</label>
+                            <input type="email" id="vol-email" placeholder="student@smuct.ac.bd">
+                        </div>
+                        <div class="form-group">
+                            <label for="vol-event">Preferred Event</label>
+                            <select id="vol-event">
+                                <option value="">Select an event</option>
+                            </select>
+                        </div>
+                        <button class="volunteer-btn" onclick="handleVolunteer()">
+                            Submit Application
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Success State -->
+                    <div class="volunteer-success" id="volunteer-success" style="display:none;">
+                        <div class="success-icon">🌟</div>
+                        <h3>Application Submitted!</h3>
+                        <p>Thank you for signing up to volunteer. A member of the SMUCT events team will reach out to you shortly with further details.</p>
+                        <div class="success-actions">
+                            <a href="events.html" class="success-btn-primary">Browse Events</a>
+                            <a href="index.html" class="success-btn-secondary">Return Home</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo-wrap">
+                    <img src="images/smuct-logo.png" alt="SMUCT" class="footer-logo-img">
+                    <span class="footer-logo-text">SMUCT Angan</span>
+                </div>
+                <p class="footer-tagline">Empowering students through creative excellence and technological mastery since 2003. Bangladesh's premier hub for creative learning.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Permanent Campus: Plot 06, Avenue 06, Sector 17/H1, Uttara Residential Area, Uttara, Dhaka, Bangladesh</li>
+                    <li>📞 09612 005522 / 09638-177177</li>
+                    <li>✉️ info@smuct.ac.bd</li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Join our community newsletter for the latest campus events.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="student@smuct.ac.bd">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Shanto-Mariam University of Creative Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    fetch('php/events/read.php')
+        .then(res => res.json())
+        .then(data => {
+            var sel = document.getElementById('vol-event');
+            var upcoming = data.filter(e => e.status === 'upcoming');
+            upcoming.forEach(e => {
+                sel.innerHTML += '<option value="' + e.title + '">' + e.title + '</option>';
+            });
+        });
+    </script>
+</body>
+</html>

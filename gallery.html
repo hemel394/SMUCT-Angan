@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | SMUCT Angan</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="images/smuct-logo.png" alt="SMUCT Angan" class="navbar-logo-img">
+                <span class="navbar-logo-text">আঙিনা</span>
+            </a>
+            <nav class="navbar-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <a href="login.html" class="navbar-btn">Admin Login</a>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-orb page-header-orb-1"></div>
+        <div class="page-header-orb page-header-orb-2"></div>
+        <div class="section-container">
+            <nav class="breadcrumb">
+                <a href="index.html" class="breadcrumb-link">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 12L12 3l9 9M5 10v10h5v-6h4v6h5V10" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Home
+                </a>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current">Gallery</span>
+            </nav>
+            <h1 class="page-title">Our <em>Gallery</em></h1>
+            <p class="page-subtitle">Moments captured from our most memorable events</p>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-page">
+        <div class="section-container">
+
+            <!-- Filter Bar -->
+            <div class="gallery-filter">
+                <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+                <button class="filter-btn" onclick="filterGallery('cultural', this)">Cultural</button>
+                <button class="filter-btn" onclick="filterGallery('academic', this)">Academic</button>
+                <button class="filter-btn" onclick="filterGallery('sports', this)">Sports</button>
+                <button class="filter-btn" onclick="filterGallery('festivals', this)">Festivals</button>
+                <button class="filter-btn" onclick="filterGallery('religious', this)">Religious</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="gallery-grid"></div>
+
+            <!-- Empty State -->
+            <div class="gallery-empty" id="gallery-empty" style="display:none;">
+                <div class="empty-icon">📷</div>
+                <h3>No photos found</h3>
+                <p>No photos in this category yet. Check back soon!</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo-wrap">
+                    <img src="images/smuct-logo.png" alt="SMUCT" class="footer-logo-img">
+                    <span class="footer-logo-text">SMUCT Angan</span>
+                </div>
+                <p class="footer-tagline">Empowering students through creative excellence and technological mastery since 2003. Bangladesh's premier hub for creative learning.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Permanent Campus: Plot 06, Avenue 06, Sector 17/H1, Uttara Residential Area, Uttara, Dhaka, Bangladesh</li>
+                    <li>📞 09612 005522 / 09638-177177</li>
+                    <li>✉️ info@smuct.ac.bd</li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Join our community newsletter for the latest campus events.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="student@smuct.ac.bd">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Shanto-Mariam University of Creative Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function filterGallery(category, btn) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            const empty = document.getElementById('gallery-empty');
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            let visible = 0;
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    visible++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            empty.style.display = visible === 0 ? 'block' : 'none';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Event delegation so dynamically loaded gallery items still open the lightbox
+        document.getElementById('gallery-grid').addEventListener('click', (e) => {
+            const item = e.target.closest('.gallery-item');
+            if (!item) return;
+            const img = item.querySelector('img');
+            const caption = item.querySelector('.gallery-caption').textContent;
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        fetch('php/gallery/read.php')
+            .then(res => res.json())
+            .then(data => {
+                const grid = document.getElementById('gallery-grid');
+                if (data.length === 0) {
+                    document.getElementById('gallery-empty').style.display = 'block';
+                    return;
+                }
+                grid.innerHTML = data.map(p => `
+                    <div class="gallery-item" data-category="${p.category}">
+                        <img src="${p.image_url}" alt="${p.title}">
+                        <div class="gallery-overlay">
+                            <span class="gallery-tag tag-${p.category}">${p.category}</span>
+                            <p class="gallery-caption">${p.title}</p>
+                        </div>
+                    </div>
+                `).join('');
+            });
+    </script>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" style="display:none;" onclick="if(event.target===this) closeLightbox()">
+        <button class="lightbox-close" id="lightbox-close" onclick="closeLightbox()">✕</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src=" " alt="">
+            <p id="lightbox-caption"></p>
+        </div>
+    </div>
+
+</body>
+</html>

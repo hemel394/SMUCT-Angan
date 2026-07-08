@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMUCT Angan</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="images/smuct-logo.png" alt="SMUCT Angan" class="navbar-logo-img">
+                <span class="navbar-logo-text">আঙিনা</span>
+            </a>
+            <nav class="navbar-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="events.html">Events</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <a href="login.html" class="navbar-btn">Admin Login</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-content">
+            <div class="hero-rule"></div>
+            <h1 class="hero-title">
+                Where <em class="hero-highlight">Creativity</em><br>Meets Technology.
+            </h1>
+            <p class="hero-subtitle">Discover, participate, and inspire in the vibrant campus life of SMUCT. Your portal to innovation and artistic expression.</p>
+            <div class="hero-buttons">
+                <a href="events.html" class="hero-btn-primary">
+                    Explore Events
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="volunteer.html" class="hero-btn-secondary">Volunteer Now</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+        </div>
+        <div class="hero-cut"></div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="section-container">
+            <div class="section-header">
+                <p class="section-eyebrow">Browse By</p>
+                <h2 class="section-title-left">Event Categories</h2>
+            </div>
+            <div class="categories-grid">
+
+                <a href="events.html" class="category-card">
+                    <div class="category-icon icon-sports">⚽</div>
+                    <h3>Sports</h3>
+                    <p>Discover all</p>
+                </a>
+
+                <a href="events.html" class="category-card">
+                    <div class="category-icon icon-cultural">🎨</div>
+                    <h3>Cultural</h3>
+                    <p>Discover all</p>
+                </a>
+
+                <a href="events.html" class="category-card">
+                    <div class="category-icon icon-academic">📚</div>
+                    <h3>Academic</h3>
+                    <p>Discover all</p>
+                </a>
+
+                <a href="events.html" class="category-card">
+                    <div class="category-icon icon-festivals">🎉</div>
+                    <h3>Festivals</h3>
+                    <p>Discover all</p>
+                </a>
+
+                <a href="events.html" class="category-card">
+                    <div class="category-icon icon-religious">🕌</div>
+                    <h3>Religious</h3>
+                    <p>Discover all</p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Preview -->
+    <section class="events-preview">
+        <div class="section-container">
+            <div class="events-preview-header">
+                <div>
+                    <p class="section-eyebrow">What's On</p>
+                    <h2 class="section-title-left">Upcoming Highlights</h2>
+                    <p class="section-subtitle-left">Don't miss out on these upcoming highlights.</p>
+                </div>
+                <a href="events.html" class="full-calendar-link">
+                    Full Calendar
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="events-grid" id="events-preview-grid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-brand">
+                <div class="footer-logo-wrap">
+                    <img src="images/smuct-logo.png" alt="SMUCT" class="footer-logo-img">
+                    <span class="footer-logo-text">SMUCT Angan</span>
+                </div>
+                <p class="footer-tagline">Empowering students through creative excellence and technological mastery since 2003. Bangladesh's premier hub for creative learning.</p>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 Permanent Campus: Plot 06, Avenue 06, Sector 17/H1, Uttara Residential Area, Uttara, Dhaka, Bangladesh</li>
+                    <li>📞 09612 005522 / 09638-177177</li>
+                    <li>✉️ info@smuct.ac.bd</li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Join our community newsletter for the latest campus events.</p>
+                <div class="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="student@smuct.ac.bd">
+                    <button onclick="handleNewsletter()">Subscribe</button>
+                </div>
+                <p id="newsletter-msg" style="font-size:13px; font-weight:600; margin-top:10px;"></p>
+            </div>
+
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Shanto-Mariam University of Creative Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+    fetch('php/events/read.php')
+        .then(res => res.json())
+        .then(data => {
+            var upcoming = data.filter(e => e.status === 'upcoming').slice(0, 3);
+            document.getElementById('events-preview-grid').innerHTML = upcoming.map(e => `
+                <div class="event-card">
+                    <div class="event-card-img">
+                        <img src="${e.image_url || 'images/1.jpg'}" alt="${e.title}">
+                        <span class="event-badge badge-${e.category}">${e.category}</span>
+                    </div>
+                    <div class="event-card-body">
+                        <p class="event-date">📅 ${e.event_date}</p>
+                        <h3 class="event-title">${e.title}</h3>
+                        <p class="event-desc">${e.description || ''}</p>
+                        <a href="details.html?id=${e.id}" class="event-btn">View Details</a>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>

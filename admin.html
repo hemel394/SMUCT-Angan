@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SMUCT Angan</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <script>
+    fetch('php/check_session.php')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.logged_in) window.location.href = 'login.html';
+        });
+    </script>
+
+
+    <!-- NAVBAR -->
+    <header class="admin-navbar">
+        <div class="admin-navbar-container">
+            <div class="admin-navbar-left">
+                <span class="admin-navbar-logo">SMUCT Angan</span>
+                <span class="admin-badge">Admin Dashboard</span>
+            </div>
+            <div class="admin-navbar-right">
+                <div class="admin-user-info">
+                    <div class="admin-avatar">UC</div>
+                    <div>
+                        <p class="admin-title">University Coordinator</p>
+                        <p class="admin-subtitle">Logged in as Admin</p>
+                    </div>
+                </div>
+                <a href="index.html" class="admin-home-btn">← Home</a>
+                <a href="#" class="logout-btn" onclick="handleLogout(); return false;">Terminate Session</a>
+        </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" onclick="switchTab('events', this)">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Events Registry</span>
+                </button>
+                <button class="sidebar-btn" onclick="switchTab('status', this)">
+                    <span class="sidebar-icon">🗂️</span>
+                    <span>Event Status</span>
+                </button>
+                <button class="sidebar-btn" onclick="switchTab('volunteers', this)">
+                    <span class="sidebar-icon">👥</span>
+                    <span>Volunteer Force</span>
+                </button>
+                <button class="sidebar-btn" onclick="switchTab('assignments', this)">
+                    <span class="sidebar-icon">🔗</span>
+                    <span>Assignments</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="admin-main">
+
+            <!-- TAB: EVENTS -->
+            <div class="tab-content active" id="tab-events">
+
+                <div class="admin-page-header">
+                    <p class="section-eyebrow">Events Registry</p>
+                    <h1 class="admin-page-title">Manage Events</h1>
+                </div>
+
+                <!-- Add Event -->
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Add New Event</h2>
+                    <div class="admin-form">
+
+                        <div class="form-group">
+                            <label>Event Title</label>
+                            <input type="text" id="event-title" placeholder="Enter event title">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <div class="input-icon-wrap" onclick="openPicker('event-date')">
+                                    <span class="input-icon">📅</span>
+                                    <input type="date" id="event-date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Time</label>
+                                <div class="input-icon-wrap" onclick="openPicker('event-time')">
+                                    <span class="input-icon">⏰</span>
+                                    <input type="time" id="event-time">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="event-category">
+                                    <option value="">Select category</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="cultural">Cultural</option>
+                                    <option value="academic">Academic</option>
+                                    <option value="festival">Festival</option>
+                                    <option value="religious">Religious</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Venue Location</label>
+                                <input type="text" id="event-venue" placeholder="e.g. Open Field, SMUCT Campus">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cover Image</label>
+                            <div class="file-upload-wrap" id="file-upload-area" onclick="document.getElementById('event-image').click()">
+                                <div class="file-upload-icon">🖼️</div>
+                                <div class="file-upload-text">
+                                    <span class="file-upload-main">Click to upload cover image</span>
+                                    <span class="file-upload-sub">JPG, PNG or WEBP — max 5MB</span>
+                                </div>
+                                <input type="file" id="event-image" accept="image/*" style="display:none" onchange="previewImage(this)">
+                            </div>
+                            <div class="file-preview" id="file-preview" style="display:none;">
+                                <img id="preview-img" src="" alt="Preview">
+                                <div class="file-preview-info">
+                                    <span id="preview-name" class="file-preview-name"></span>
+                                    <button class="file-remove-btn" onclick="removeImage()">✕ Remove</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Detailed Description</label>
+                            <textarea id="event-description" rows="4" placeholder="Write a detailed description..."></textarea>
+                        </div>
+
+                        <button class="admin-btn" onclick="addEvent()">+ Create University Event</button>
+                        <p id="event-msg" class="form-msg"></p>
+
+                    </div>
+                </div>
+
+                <!-- Events Table -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h2 class="admin-card-title">Existing Event Schedules</h2>
+                        <span class="count-badge" id="event-count">0 Events</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Date & Time</th>
+                                    <th>Category</th>
+                                    <th>Venue</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="events-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END TAB: EVENTS -->
+
+            <!-- TAB: EVENT STATUS -->
+            <div class="tab-content" id="tab-status">
+
+                <div class="admin-page-header">
+                    <p class="section-eyebrow">Event Status</p>
+                    <h1 class="admin-page-title">Track & Update Events</h1>
+                </div>
+
+                <!-- Status Sub-tabs (nested, same visual language as main sidebar) -->
+                <div class="event-subtabs">
+                    <button class="event-subtab-btn active" onclick="switchEventSubTab('upcoming', this)">
+                        Upcoming <span class="subtab-count" id="count-upcoming">0</span>
+                    </button>
+                    <button class="event-subtab-btn" onclick="switchEventSubTab('archived', this)">
+                        Archived <span class="subtab-count" id="count-archived">0</span>
+                    </button>
+                </div>
+
+                <div class="admin-card">
+                    <div class="status-grid" id="status-grid"></div>
+                </div>
+
+            </div>
+            <!-- END TAB: EVENT STATUS -->
+
+            <!-- TAB: VOLUNTEERS -->
+            <div class="tab-content" id="tab-volunteers">
+
+                <div class="admin-page-header">
+                    <p class="section-eyebrow">Volunteer Force</p>
+                    <h1 class="admin-page-title">Manage Volunteers</h1>
+                </div>
+
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Register New Volunteer</h2>
+                    <div class="admin-form">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="vol-name" placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Student ID</label>
+                                <input type="text" id="vol-id" placeholder="Enter student ID">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select id="vol-dept">
+                                    <option value="">Select department</option>
+                                    <optgroup label="Faculty of Engineering & Technology">
+                                        <option>Computer Science & Engineering (CSE)</option>
+                                        <option>Computer Science & IT (CSIT)</option>
+                                    </optgroup>
+                                    <optgroup label="Faculty of Business">
+                                        <option>Business Administration (BBA)</option>
+                                        <option>MBA</option>
+                                    </optgroup>
+                                    <optgroup label="Faculty of Fine & Performing Arts">
+                                        <option>Fine Arts</option>
+                                        <option>Music</option>
+                                        <option>Film & Television</option>
+                                    </optgroup>
+                                    <optgroup label="Faculty of Design & Technology">
+                                        <option>Fashion Design & Technology (FDT)</option>
+                                        <option>Graphic Design & Multimedia (GDM)</option>
+                                        <option>Interior Architecture</option>
+                                        <option>Architecture</option>
+                                    </optgroup>
+                                    <optgroup label="Faculty of Humanities & Social Sciences">
+                                        <option>English</option>
+                                        <option>Law (LLB)</option>
+                                        <option>Bangla</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input type="email" id="vol-email" placeholder="student@email.com">
+                            </div>
+                        </div>
+
+                        <button class="admin-btn" onclick="addVolunteer()">+ Add to Database</button>
+                        <p id="vol-msg" class="form-msg"></p>
+
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h2 class="admin-card-title">Pending Requests</h2>
+                        <span class="count-badge" id="pending-count">0 Pending</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Student ID</th>
+                                    <th>Department</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Preferred Event</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pending-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h2 class="admin-card-title">Verified Volunteer Team</h2>
+                        <span class="count-badge" id="vol-count">0 Volunteers</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Student ID</th>
+                                    <th>Department</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="volunteers-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END TAB: VOLUNTEERS -->
+
+            <!-- TAB: ASSIGNMENTS -->
+            <div class="tab-content" id="tab-assignments">
+
+                <div class="admin-page-header">
+                    <p class="section-eyebrow">Assignments</p>
+                    <h1 class="admin-page-title">Event Coordination</h1>
+                </div>
+
+                <div class="admin-card">
+                    <h2 class="admin-card-title">Assign Volunteer to Event</h2>
+                    <div class="admin-form">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Event</label>
+                                <select id="assign-event">
+                                    <option value="">Select an event</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Volunteer</label>
+                                <select id="assign-volunteer">
+                                    <option value="">Select a volunteer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="admin-btn" onclick="addAssignment()">✓ Confirm Assignment</button>
+                        <p id="assign-msg" class="form-msg"></p>
+
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h2 class="admin-card-title">Active Task Forces</h2>
+                        <span class="count-badge" id="assign-count">0 Assignments</span>
+                    </div>
+                    <div class="task-force-grid" id="task-force-grid"></div>
+                </div>
+
+            </div>
+            <!-- END TAB: ASSIGNMENTS -->
+
+        </main>
+    </div>
+
+    <!-- EDIT EVENT MODAL -->
+    <div class="modal-overlay" id="edit-modal" style="display:none;" onclick="if(event.target===this) closeEditModal()">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Event</h3>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <div class="admin-form">
+                <input type="hidden" id="edit-event-id">
+                <div class="form-group">
+                    <label>Event Title</label>
+                    <input type="text" id="edit-event-title" placeholder="Event title">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <div class="input-icon-wrap" onclick="openPicker('edit-event-date')">
+                            <span class="input-icon">📅</span>
+                            <input type="date" id="edit-event-date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <div class="input-icon-wrap" onclick="openPicker('edit-event-time')">
+                            <span class="input-icon">⏰</span>
+                            <input type="time" id="edit-event-time">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="edit-event-category">
+                            <option value="sports">Sports</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="academic">Academic</option>
+                            <option value="festival">Festival</option>
+                            <option value="religious">Religious</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Venue</label>
+                        <input type="text" id="edit-event-venue" placeholder="Venue">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="edit-event-status">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="edit-event-description" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="admin-btn" onclick="saveEditEvent()">Save Changes</button>
+                    <button class="modal-cancel-btn" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD PHOTOS MODAL -->
+    <div class="modal-overlay" id="upload-modal" style="display:none;" onclick="if(event.target===this) closeUploadModal()">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">📷 Upload Event Photos</h3>
+                <button class="modal-close" onclick="closeUploadModal()">✕</button>
+            </div>
+            <div class="admin-form">
+                <p class="modal-event-name" id="upload-event-name"></p>
+                <div class="form-group">
+                    <label>Select Photos</label>
+                    <div class="file-upload-wrap" onclick="document.getElementById('gallery-upload').click()">
+                        <div class="file-upload-icon">📷</div>
+                        <div class="file-upload-text">
+                            <span class="file-upload-main">Click to select multiple photos</span>
+                            <span class="file-upload-sub">JPG, PNG or WEBP — select as many as you need</span>
+                        </div>
+                        <input type="file" id="gallery-upload" accept="image/*" multiple style="display:none" onchange="previewGalleryImages(this)">
+                    </div>
+                </div>
+                <div class="gallery-preview-grid" id="gallery-preview-grid"></div>
+                <div class="modal-actions">
+                    <button class="admin-btn" onclick="saveGalleryPhotos()">Upload to Gallery</button>
+                    <button class="modal-cancel-btn" onclick="closeUploadModal()">Cancel</button>
+                </div>
+                <p id="upload-msg" class="form-msg"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARCHIVE CONFIRM MODAL -->
+    <div class="modal-overlay" id="archive-modal" style="display:none;" onclick="if(event.target===this) closeArchiveModal()">
+        <div class="modal-card" style="max-width:420px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Archive Event</h3>
+                <button class="modal-close" onclick="closeArchiveModal()">✕</button>
+            </div>
+            <div class="admin-form">
+                <p class="archive-confirm-text">
+                    Are you sure you want to archive <strong id="archive-event-name"></strong>?
+                    Once archived, you can upload gallery photos for this event.
+                </p>
+                <div class="modal-actions">
+                    <button class="admin-btn" style="background:#f59e0b;" onclick="confirmArchive()">Yes, Archive It</button>
+                    <button class="modal-cancel-btn" onclick="closeArchiveModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+fetch('php/check_session.php')
+    .then(res => res.json())
+    .then(data => {
+        if (!data.logged_in) window.location.href = 'login.html';
+    });
+</script>
+
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+
+</body>
+</html>
