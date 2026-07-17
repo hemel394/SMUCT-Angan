@@ -1,4 +1,5 @@
 <?php
+include '../auth_guard.php';
 include '../connect.php';
 
 $event_id     = $_POST['event_id'] ?? '';

@@ -1,4 +1,5 @@
 <?php
+include '../auth_guard.php';
 include '../connect.php';
 
 $title       = $_POST['title'] ?? '';

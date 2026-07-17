@@ -1,4 +1,5 @@
 <?php
+include '../auth_guard.php';
 include '../connect.php';
 
 $id = intval($_GET['id']);

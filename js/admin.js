@@ -5,8 +5,6 @@ const API = {
     assignments: 'api/assignments.php'
 };
 
-const IMGBB_API_KEY = 'c7be2ed67ea97338c083506aab888183';
-
 // ===== STATE =====
 var eventsCache = [];
 var currentStatusFilter = 'upcoming';
@@ -109,14 +107,14 @@ function uploadToImgbb(file, onSuccess, onError) {
     var formData = new FormData();
     formData.append('image', file);
 
-    fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, {
+    fetch('php/imgbb_upload.php', {
         method: 'POST',
         body: formData
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
         if (data.success) {
-            onSuccess(data.data.url);
+            onSuccess(data.url);
         } else {
             onError();
         }
@@ -423,12 +421,12 @@ function saveGalleryPhotos() {
     var uploads = files.map(function(file) {
         var formData = new FormData();
         formData.append('image', file);
-        return fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, {
+        return fetch('php/imgbb_upload.php', {
             method: 'POST',
             body: formData
         })
         .then(function(res) { return res.json(); })
-        .then(function(data) { return data.success ? data.data.url : null; })
+        .then(function(data) { return data.success ? data.url : null; })
         .catch(function(err) { console.error('imgbb upload error:', err); return null; });
     });
 

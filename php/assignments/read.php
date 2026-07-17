@@ -1,4 +1,5 @@
 <?php
+include '../auth_guard.php';
 include '../connect.php';
 
 $sql = "SELECT assignments.id, events.title AS event_title, volunteers.name AS volunteer_name

@@ -1,4 +1,5 @@
 <?php
+include '../auth_guard.php';
 include '../connect.php';
 
 $sql = "SELECT * FROM volunteers ORDER BY created_at DESC";
