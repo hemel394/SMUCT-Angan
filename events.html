@@ -63,7 +63,7 @@
             </div>
 
             <!-- Events Grid -->
-            <div class="events-grid" id="events-grid"></div>
+            <div class="events-grid" id="events-grid"><p style="grid-column:1/-1;">Loading events…</p></div>
 
             <!-- Empty State -->
             <div class="events-empty" id="events-empty" style="display:none;">
@@ -132,6 +132,9 @@
                     </div>
                 </div>
             `).join('');
+        })
+        .catch(() => {
+            document.getElementById('events-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load events right now.</p>';
         });
     </script>
     <script>

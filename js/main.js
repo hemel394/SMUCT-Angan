@@ -3,6 +3,11 @@
 function handleLogin() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+    var btn = document.querySelector('.login-submit-btn');
+    var errorEl = document.getElementById('login-error');
+
+    errorEl.textContent = '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Logging in…'; }
 
     var formData = new FormData();
     formData.append('username', username);
@@ -14,8 +19,13 @@ function handleLogin() {
             if (data.success) {
                 window.location.href = 'admin.html';
             } else {
-                document.getElementById('login-error').textContent = data.message;
+                errorEl.textContent = data.message;
+                if (btn) { btn.disabled = false; btn.textContent = 'Login to Dashboard'; }
             }
+        })
+        .catch(function() {
+            errorEl.textContent = 'Something went wrong. Try again.';
+            if (btn) { btn.disabled = false; btn.textContent = 'Login to Dashboard'; }
         });
 }
 
@@ -41,6 +51,10 @@ function handleVolunteer() {
         return;
     }
 
+    var btn = document.querySelector('.volunteer-btn');
+    var originalText = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
     var formData = new FormData();
     formData.append('name', name);
     formData.append('student_id', id);
@@ -57,7 +71,12 @@ function handleVolunteer() {
                 document.getElementById('volunteer-success').style.display = 'flex';
             } else {
                 alert('Error: ' + data.message);
+                if (btn) { btn.disabled = false; btn.textContent = originalText; }
             }
+        })
+        .catch(function() {
+            alert('Something went wrong. Please check your connection and try again.');
+            if (btn) { btn.disabled = false; btn.textContent = originalText; }
         });
 }
 
@@ -75,6 +94,10 @@ function handleContact() {
         return;
     }
 
+    var btn = document.querySelector('.contact-btn');
+    var originalText = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
     var formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
@@ -89,7 +112,12 @@ function handleContact() {
                 document.getElementById('contact-success').style.display = 'flex';
             } else {
                 alert('Error: ' + data.message);
+                if (btn) { btn.disabled = false; btn.textContent = originalText; }
             }
+        })
+        .catch(function() {
+            alert('Something went wrong. Please check your connection and try again.');
+            if (btn) { btn.disabled = false; btn.textContent = originalText; }
         });
 }
 

@@ -1,5 +1,4 @@
 <?php
-include '../auth_guard.php';
 include '../connect.php';
 
 $id = $_GET['id'] ?? '';

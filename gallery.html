@@ -63,7 +63,7 @@
             </div>
 
             <!-- Gallery Grid -->
-            <div class="gallery-grid" id="gallery-grid"></div>
+            <div class="gallery-grid" id="gallery-grid"><p style="grid-column:1/-1;">Loading photos…</p></div>
 
             <!-- Empty State -->
             <div class="gallery-empty" id="gallery-empty" style="display:none;">
@@ -157,6 +157,7 @@
             .then(data => {
                 const grid = document.getElementById('gallery-grid');
                 if (data.length === 0) {
+                    grid.innerHTML = '';
                     document.getElementById('gallery-empty').style.display = 'block';
                     return;
                 }
@@ -169,6 +170,9 @@
                         </div>
                     </div>
                 `).join('');
+            })
+            .catch(() => {
+                document.getElementById('gallery-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load photos right now.</p>';
             });
     </script>
 

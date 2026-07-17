@@ -9,6 +9,20 @@ const API = {
 var eventsCache = [];
 var currentStatusFilter = 'upcoming';
 
+function showTableLoading(tbodyId, colspan) {
+    var tbody = document.getElementById(tbodyId);
+    if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="' + colspan + '" class="empty-row">Loading…</td></tr>';
+    }
+}
+
+function showGridLoading(gridId, message) {
+    var grid = document.getElementById(gridId);
+    if (grid) {
+        grid.innerHTML = '<p class="empty-row" style="padding:24px 0; grid-column:1/-1;">' + (message || 'Loading…') + '</p>';
+    }
+}
+
 
 // ===== TAB SWITCHING =====
 function switchTab(tab, btn) {
@@ -164,6 +178,8 @@ function saveEvent(title, date, time, cat, venue, desc, imageUrl, msg) {
 }
 
 function loadEvents() {
+    showTableLoading('events-table-body', 7);
+    showGridLoading('status-grid');
     fetch('php/events/read.php')
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -509,6 +525,8 @@ function addVolunteer() {
 }
 
 function loadVolunteers() {
+    showTableLoading('pending-table-body', 8);
+    showTableLoading('volunteers-table-body', 6);
     fetch('php/volunteers/read.php')
         .then(function(res) { return res.json(); })
         .then(renderVolunteers)
@@ -609,6 +627,11 @@ function rejectVolunteer(id) {
 
 
 function populateAssignDropdowns() {
+    var eventSel = document.getElementById('assign-event');
+    var volSel   = document.getElementById('assign-volunteer');
+    if (eventSel) eventSel.innerHTML = '<option value="">Loading events…</option>';
+    if (volSel)   volSel.innerHTML   = '<option value="">Loading volunteers…</option>';
+
     fetch('php/events/read.php')
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -618,6 +641,9 @@ function populateAssignDropdowns() {
                 .forEach(function(e) {
                     sel.innerHTML += '<option value="' + e.id + '">' + e.title + '</option>';
                 });
+        })
+        .catch(function() {
+            eventSel.innerHTML = '<option value="">Couldn\'t load events</option>';
         });
 
     fetch('php/volunteers/read.php')
@@ -628,6 +654,9 @@ function populateAssignDropdowns() {
             data.forEach(function(v) {
                 sel.innerHTML += '<option value="' + v.id + '">' + v.name + '</option>';
             });
+        })
+        .catch(function() {
+            volSel.innerHTML = '<option value="">Couldn\'t load volunteers</option>';
         });
 }
 
@@ -663,6 +692,7 @@ function addAssignment() {
 }
 
 function loadAssignments() {
+    showGridLoading('task-force-grid');
     fetch('php/assignments/read.php')
         .then(function(res) { return res.json(); })
         .then(renderAssignments)

@@ -115,7 +115,7 @@
                 </a>
             </div>
 
-            <div class="events-grid" id="events-preview-grid"></div>
+            <div class="events-grid" id="events-preview-grid"><p style="grid-column:1/-1;">Loading events…</p></div>
         </div>
     </section>
 
@@ -176,6 +176,9 @@
                     </div>
                 </div>
             `).join('');
+        })
+        .catch(() => {
+            document.getElementById('events-preview-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load events right now.</p>';
         });
     </script>
 </body>

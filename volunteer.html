@@ -136,7 +136,7 @@
                         <div class="form-group">
                             <label for="vol-event">Preferred Event</label>
                             <select id="vol-event">
-                                <option value="">Select an event</option>
+                                <option value="">Loading events…</option>
                             </select>
                         </div>
                         <button class="volunteer-btn" onclick="handleVolunteer()">
@@ -202,9 +202,13 @@
         .then(data => {
             var sel = document.getElementById('vol-event');
             var upcoming = data.filter(e => e.status === 'upcoming');
+            sel.innerHTML = '<option value="">Select an event</option>';
             upcoming.forEach(e => {
                 sel.innerHTML += '<option value="' + e.title + '">' + e.title + '</option>';
             });
+        })
+        .catch(() => {
+            document.getElementById('vol-event').innerHTML = '<option value="">Select an event</option>';
         });
     </script>
 </body>
