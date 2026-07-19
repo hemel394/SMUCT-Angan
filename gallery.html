@@ -63,6 +63,7 @@
             </div>
 
             <!-- Gallery Grid -->
+            <p id="gallery-loading-label" style="color:#64748b;font-size:14px;margin-bottom:12px;">Loading photos…</p>
             <div class="gallery-grid" id="gallery-grid"></div>
 
             <!-- Empty State -->
@@ -205,6 +206,7 @@
                     </div>
                 `).join('');
                 packMasonryWhenReady();
+                document.getElementById('gallery-loading-label').style.display = 'none';
                 window.initScrollReveal();
             })
             .catch(() => {
