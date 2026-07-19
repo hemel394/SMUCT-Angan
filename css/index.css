@@ -9,7 +9,7 @@
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: #f7f5f0;
-    color: #0164ce;
+    color: #0d1b2a;
 }
 
 a {
@@ -188,6 +188,17 @@ img {
 .categories {
     padding: 96px 32px;
     background-color: #eef1f8;
+    position: relative;
+}
+
+.categories-cut {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #f7f5f0;
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
 }
 
 .categories-grid {
@@ -201,8 +212,8 @@ img {
     background: #ffffff;
     padding: 44px 24px 36px;
     border-radius: 20px;
-    border: 1px solid #e8e4da;
-    box-shadow: 0 6px 20px rgba(13, 27, 42, 0.07);
+    border: 1.5px solid #e2e7f3;
+    box-shadow: 0 4px 16px rgba(17, 48, 162, 0.06);
     display: flex;
     flex-direction: column;
     align-items: center;

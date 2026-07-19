@@ -232,3 +232,32 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ===== Image fade-in on load ===== */
+.fade-img {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.fade-img.loaded {
+    opacity: 1;
+}
+
+/* ===== Skeleton loading shimmer ===== */
+.skeleton-card {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #eef1f8;
+    height: 260px;
+    position: relative;
+}
+.skeleton-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-shimmer 1.4s infinite;
+}
+@keyframes skeleton-shimmer {
+    100% { transform: translateX(100%); }
+}

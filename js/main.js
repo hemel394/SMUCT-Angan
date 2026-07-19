@@ -244,3 +244,8 @@ window.initScrollReveal = function () {
 };
 
 document.addEventListener('DOMContentLoaded', window.initScrollReveal);
+
+// ===== Skeleton loading placeholders =====
+window.renderSkeletons = function (count = 6) {
+    return Array.from({ length: count }, () => '<div class="skeleton-card"></div>').join('');
+};
