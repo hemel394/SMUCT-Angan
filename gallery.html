@@ -152,6 +152,38 @@
             if (e.key === 'Escape') closeLightbox();
         });
 
+        // Masonry: give each item a grid-row-end span matching its rendered
+        // height, so shorter (landscape) photos pack tight with no gap.
+        function packMasonry() {
+            const rowHeight = 8;   // must match grid-auto-rows in gallery.css
+            const rowGap = 20;     // must match gap in gallery.css
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const img = item.querySelector('img');
+                if (!img || !img.complete || img.naturalHeight === 0) return;
+                const itemWidth = item.getBoundingClientRect().width;
+                const renderedHeight = itemWidth * (img.naturalHeight / img.naturalWidth);
+                const span = Math.ceil((renderedHeight + rowGap) / (rowHeight + rowGap));
+                item.style.gridRowEnd = `span ${span}`;
+            });
+        }
+
+        function packMasonryWhenReady() {
+            const imgs = Array.from(document.querySelectorAll('.gallery-item img'));
+            let remaining = imgs.length;
+            if (remaining === 0) return;
+            imgs.forEach(img => {
+                if (img.complete) {
+                    remaining--;
+                } else {
+                    img.addEventListener('load', () => { packMasonry(); });
+                    img.addEventListener('error', () => { packMasonry(); });
+                }
+            });
+            packMasonry();
+        }
+
+        window.addEventListener('resize', packMasonry);
+
         fetch('php/gallery/read.php')
             .then(res => res.json())
             .then(data => {
@@ -170,6 +202,7 @@
                         </div>
                     </div>
                 `).join('');
+                packMasonryWhenReady();
             })
             .catch(() => {
                 document.getElementById('gallery-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load photos right now.</p>';
