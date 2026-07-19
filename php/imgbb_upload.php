@@ -1,8 +1,8 @@
 <?php
 include 'auth_guard.php';
+include 'config.php';
 
 // Keep the imgbb key server-side only. Never expose this in JS.
-$IMGBB_API_KEY = 'c7be2ed67ea97338c083506aab888183';
 
 if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
     echo json_encode(["success" => false, "message" => "No image received."]);
