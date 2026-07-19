@@ -225,3 +225,22 @@ function attachNewsletterHandlers() {
 }
 
 document.addEventListener('DOMContentLoaded', attachNewsletterHandlers);
+// ===== Scroll-reveal (fade + slide up on entering viewport) =====
+// Call window.initScrollReveal() again after injecting new cards via fetch,
+// since elements added after page load aren't picked up automatically.
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
+
+window.initScrollReveal = function () {
+    document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => {
+        revealObserver.observe(el);
+    });
+};
+
+document.addEventListener('DOMContentLoaded', window.initScrollReveal);

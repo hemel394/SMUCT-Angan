@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events | SMUCT Angan</title>
-    <link rel="icon" type="image/png" href="images/smuct-logo.png">
-<meta name="description" content="SMUCT Angan — campus event management for Shanto-Mariam University of Creative Technology.">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/events.css">
@@ -121,7 +119,7 @@
                 return;
             }
             grid.innerHTML = upcoming.map(e => `
-                <div class="event-card" data-category="${e.category}">
+                <div class="event-card reveal-on-scroll" data-category="${e.category}">
                     <div class="event-card-img">
                         <img src="${e.image_url || 'images/1.jpg'}" alt="${e.title}">
                         <span class="event-badge badge-${e.category}">${e.category}</span>
@@ -134,6 +132,7 @@
                     </div>
                 </div>
             `).join('');
+            window.initScrollReveal();
         })
         .catch(() => {
             document.getElementById('events-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load events right now.</p>';

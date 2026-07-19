@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | SMUCT Angan</title>
-    <link rel="icon" type="image/png" href="images/smuct-logo.png">
-<meta name="description" content="SMUCT Angan — campus event management for Shanto-Mariam University of Creative Technology.">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/gallery.css">
@@ -196,7 +194,7 @@
                     return;
                 }
                 grid.innerHTML = data.map(p => `
-                    <div class="gallery-item" data-category="${p.category}">
+                    <div class="gallery-item reveal-on-scroll" data-category="${p.category}">
                         <img src="${p.image_url}" alt="${p.title}">
                         <div class="gallery-overlay">
                             <span class="gallery-tag tag-${p.category}">${p.category}</span>
@@ -205,6 +203,7 @@
                     </div>
                 `).join('');
                 packMasonryWhenReady();
+                window.initScrollReveal();
             })
             .catch(() => {
                 document.getElementById('gallery-grid').innerHTML = '<p style="grid-column:1/-1;">Couldn\'t load photos right now.</p>';
