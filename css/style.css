@@ -241,32 +241,3 @@
 .fade-img.loaded {
     opacity: 1;
 }
-
-/* ===== Skeleton loading shimmer ===== */
-.skeleton-card {
-    border-radius: 20px;
-    overflow: hidden;
-    background: #dbe2f3;
-    height: 260px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.skeleton-card::before {
-    content: "🖼️";
-    font-size: 32px;
-    opacity: 0.35;
-    z-index: 1;
-}
-.skeleton-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
-    transform: translateX(-100%);
-    animation: skeleton-shimmer 1.4s infinite;
-}
-@keyframes skeleton-shimmer {
-    100% { transform: translateX(100%); }
-}
