@@ -116,7 +116,7 @@
         .then(res => res.json())
         .then(data => {
             var grid = document.getElementById('events-grid');
-            var upcoming = data.filter(e => e.status === 'upcoming');
+            var upcoming = data;
             if (upcoming.length === 0) {
                 document.getElementById('events-empty').style.display = 'block';
                 return;
