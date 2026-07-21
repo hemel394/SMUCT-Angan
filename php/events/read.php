@@ -1,7 +1,7 @@
 <?php
 include '../connect.php';
 
-$sql = "SELECT * FROM events ORDER BY event_date ASC";
+$sql = "SELECT * FROM events ORDER BY event_date DESC";
 $result = $conn->query($sql);
 
 $events = [];
