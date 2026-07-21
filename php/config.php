@@ -1,0 +1,3 @@
+<?php
+$IMGBB_API_KEY = "c7be2ed67ea97338c083506aab888183";
+?>
